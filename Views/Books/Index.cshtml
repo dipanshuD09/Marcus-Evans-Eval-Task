@@ -1,0 +1,37 @@
+@model IEnumerable<Book>
+
+<h2>Books List</h2>
+@if(Context.Session.GetString("UserRole") == "Librarian")
+{
+    <a href="/Books/Create">Add New Book</a>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>ISBN</th>
+            <th>Published Date</th>
+            <th>Genre</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var book in Model)
+    {
+        <tr>
+            <td>@book.Title</td>
+            <td>@book.Author</td>
+            <td>@book.ISBN</td>
+            <td>@book.PublishedDate.ToShortDateString()</td>
+            <td>@book.Genre</td>
+            <td>
+                <a href="/Books/Details/@book.Id">Details</a> |
+                <a href="/Books/Edit/@book.Id">Edit</a> |
+                <a href="/Books/Delete/@book.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
